@@ -196,3 +196,7 @@
     state: started
     enabled: yes
 
+- git:
+    repo: 'https://github.com/OSC/bc_osc_matlab.git'
+    dest: /var/www/ood/apps/sys/
+    clone: yes
