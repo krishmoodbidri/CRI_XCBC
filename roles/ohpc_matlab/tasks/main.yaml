@@ -1,0 +1,9 @@
+- name: install the latest version of libXtst
+  yum:
+    name: libXtst
+    state: latest
+
+- name: Download matlab
+  get_url:
+    url: https://uab.box.com/v/matlab
+    dest: /tmp/
