@@ -2,4 +2,4 @@
 - hosts: ood
   roles:
     - ood
-    - { name: 'oodmatlab', tags: 'oodmatlab' }
+    - { name: 'ood_matlab', tags: 'oodmatlab' }
