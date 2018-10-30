@@ -13,3 +13,15 @@
     path: /var/www/ood/apps/sys/matlab/submit.yml.erb
     regexp: '^cluster:'
     line: 'cluster: {{ cluster_name }}'
+
+- name: modify to fit our environment
+  lineinfile:
+    path: /var/www/ood/apps/sys/matlab/form.yml
+    regexp: '^cluster:'
+    line: 'cluster: {{ cluster_name }}'
+
+- name: Restart httpd24-httpd
+  service:
+    name: httpd24-httpd
+    state: restarted
+
