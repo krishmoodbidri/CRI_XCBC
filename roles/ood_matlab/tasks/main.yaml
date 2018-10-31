@@ -8,11 +8,10 @@
     dest: /var/www/ood/apps/sys/matlab/
     clone: yes
 
-- name: modify to fit our environment 
-  lineinfile:
-    path: /var/www/ood/apps/sys/matlab/submit.yml.erb
-    regexp: '^cluster:'
-    line: 'cluster: {{ cluster_name }}'
+name: Replace submit.yml.erb
+  template:
+    src: submit.yml
+    dest: /var/www/ood/apps/sys/matlab/submit.yml.erb
 
 - name: modify to fit our environment
   lineinfile:
