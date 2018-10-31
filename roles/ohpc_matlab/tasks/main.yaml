@@ -5,5 +5,8 @@
 
 - name: Download matlab
   get_url:
-    url: https://uab.box.com/v/matlab
-    dest: /tmp/
+    url: "{{ matlab_download_url }}"
+    dest: /tmp/matlab.tar.gz
+
+- name: Un-tar downloaded MATLAB 
+  command: tar -xvf /tmp/matlab.tar.gz 
