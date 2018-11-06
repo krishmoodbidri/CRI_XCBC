@@ -8,7 +8,7 @@
     dest: /var/www/ood/apps/sys/matlab/
     clone: yes
 
-name: Replace submit.yml.erb
+- name: Replace submit.yml.erb
   template:
     src: submit.yml
     dest: /var/www/ood/apps/sys/matlab/submit.yml.erb
@@ -18,9 +18,4 @@ name: Replace submit.yml.erb
     path: /var/www/ood/apps/sys/matlab/form.yml
     regexp: '^cluster:'
     line: 'cluster: {{ cluster_name }}'
-
-- name: Restart httpd24-httpd
-  service:
-    name: httpd24-httpd
-    state: restarted
 
