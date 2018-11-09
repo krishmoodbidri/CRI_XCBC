@@ -9,4 +9,4 @@
     dest: /tmp/matlab.tar.gz
 
 - name: Un-tar downloaded MATLAB 
-  command: tar -xvf /tmp/matlab.tar.gz -C /opt/ohpc/pub/apps/matlab/ 
+  command: tar -xvf /tmp/matlab.tar.gz -C "{{ matlab_clustershare }}"

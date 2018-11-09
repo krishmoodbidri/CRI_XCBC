@@ -105,3 +105,4 @@
 #matlab download
   matlab_provision: true
   matlab_download_url: "https://uab.box.com/shared/static/y01qu7oo1gpne6j2s6nqwcuee63epivo.gz"
+  matlab_clustershare: "/opt/ohpc/pub/apps/matlab/"
