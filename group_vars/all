@@ -102,6 +102,13 @@
   node_glob_bash: "{{ compute_node_prefix }}{0..{{ num_compute_nodes|int - 1}}}"
   gpu_node_glob_bash: "{{ compute_node_prefix }}{0..{{ num_compute_nodes|int - 1}}}"
 
+#EasyBuild variables
+  cluster_shared_folder: "/export"
+  easybuild_prefix: "{{ cluster_shared_folder }}/eb"
+  easybuild_tmpdir: "/tmp"
+  easybuild_buildpath: "/tmp/build"
+  easybuild_sourcepath: "/tmp/source"
+
 #matlab download
   matlab_provision: true
   matlab_download_url: "https://uab.box.com/shared/static/y01qu7oo1gpne6j2s6nqwcuee63epivo.gz"
