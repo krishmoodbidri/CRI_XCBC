@@ -6,7 +6,7 @@
 - name: Download matlab
   get_url:
     url: "{{ matlab_download_url }}"
-    dest: /tmp/matlab.tar.gz
+    dest: "{{ matlab_destination  }}"
 
 - name: Un-tar downloaded MATLAB 
-  command: tar -xvf /tmp/matlab.tar.gz -C "{{ matlab_clustershare }}"
+  command: tar -xvf {{ matlab_destination  }} -C "{{ matlab_clustershare }}"
