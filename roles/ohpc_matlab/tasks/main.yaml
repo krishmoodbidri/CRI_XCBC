@@ -1,6 +1,6 @@
 - name: install the latest version of libXtst
   yum:
-    name: libXtst
+    name: libXt
     state: latest
 
 - name: Download matlab
