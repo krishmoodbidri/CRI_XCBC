@@ -1,6 +1,6 @@
 ---
 batch_connect:
-  template: basic
+  template: vnc
 script:
   native:
 cluster: ohpc
