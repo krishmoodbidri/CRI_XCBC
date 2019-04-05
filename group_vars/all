@@ -127,3 +127,9 @@
 # Shibboleth SSO
   enable_shib: false
 
+#ansys download
+  ansys_provision: false
+  ansys_download_url: 
+  ansys_clustershare: "/export/ansys/"
+  ansys_destination: 
+

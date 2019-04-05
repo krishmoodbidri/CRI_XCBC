@@ -1,0 +1,20 @@
+- name: ansys directory
+  file:
+    path: /var/www/ood/apps/sys/ansys
+    state: directory
+
+- git:
+    repo: 'https://github.com/OSC/bc_osc_ansys_workbench.git'
+    dest: /var/www/ood/apps/sys/ansys/
+    clone: yes
+
+- name: Replace submit.yml.erb
+  template:
+    src: submit.yml
+    dest: /var/www/ood/apps/sys/ansys/submit.yml.erb
+
+- name: modify to fit our environment
+  lineinfile:
+    path: /var/www/ood/apps/sys/ansys/form.yml
+    regexp: '^cluster:'
+    line: 'cluster: {{ cluster_name }}'
