@@ -1,8 +1,13 @@
-- name: Mount Disk 
+- name: Create a ext2 filesystem on /dev/sdb
+  filesystem:
+    fstype: ext2
+    dev: /dev/sdb
+
+- name: Mount Disk
   mount:
     path: /export
     src: /dev/sdb
-    fstype: ext4    
+    fstype: ext4
     state: present
 
 - name: Create directory
@@ -16,3 +21,7 @@
     url: "{{ ansys_download_url }}"
     dest: "{{ ansys_destination  }}"
 
+- name: Copy modulefile from files
+  copy:
+    src: 19.1 
+    dest: /export/modulefiles/all/ansys/19.1

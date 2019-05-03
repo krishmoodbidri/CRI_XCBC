@@ -1,0 +1,38 @@
+#%Module
+proc ModulesHelp { } {
+    puts stderr { ANSYS simulation software enables organizations to confidently predict
+    how their products will operate in the real world. We believe that every product is
+    a promise of something greater.  - Homepage: http://www.ansys.com
+    }
+}
+
+module-whatis {Description: ANSYS simulation software enables organizations to confidently predict
+    how their products will operate in the real world. We believe that every product is
+    a promise of something greater.  - Homepage: http://www.ansys.com}
+
+set root /export/
+
+conflict ANSYS
+
+prepend-path    PATH            $root/v191/Framework/bin/Linux64
+prepend-path    PATH            $root/v191/aisol/bin/linx64
+prepend-path    PATH            $root/v191/RSM/bin
+prepend-path    PATH            $root/v191/ansys/bin
+prepend-path    PATH            $root/v191/autodyn/bin
+prepend-path    PATH            $root/v191/CFD-Post/bin
+prepend-path    PATH            $root/v191/CFX/bin
+prepend-path    PATH            $root/v191/fluent/bin
+prepend-path    PATH            $root/v191/TurboGrid/bin
+prepend-path    PATH            $root/v191/polyflow/bin
+prepend-path    PATH            $root/v191/Icepak/bin
+prepend-path    PATH            $root/v191/icemcfd/linux64_amd/bin
+prepend-path    PATH            $root/v191/AnsysEM19.1/Linux64
+prepend-path    LD_LIBRARY_PATH $root/v191/AnsysEM19.1/Linux64
+setenv  EBROOTANSYS             "$root"
+setenv  EBVERSIONANSYS          "19.1"
+setenv  EBDEVELANSYS            "$root/easybuild/ANSYS-18.0-easybuild-devel"
+
+prepend-path    PATH            $root
+setenv  ICEM_ACN                "/share/apps/rc/software/ANSYS/19.1/v191/icemcfd/linux64_amd"
+setenv  ANSYSLMD_LICENSE_FILE   1055@eng-fs2.eng.uab.edu
+
