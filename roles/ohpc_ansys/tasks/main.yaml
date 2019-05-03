@@ -1,10 +1,17 @@
+- name: Mount Disk 
+  mount:
+    path: /export
+    src: /dev/sdb
+    fstype: ext4    
+    state: present
+
 - name: Create directory
   file:
     path: "{{ ansys_clustershare }}"
     state: directory
     mode: 0755
 
-- name: Download matlab
+- name: Download ansys
   get_url:
     url: "{{ ansys_download_url }}"
     dest: "{{ ansys_destination  }}"
