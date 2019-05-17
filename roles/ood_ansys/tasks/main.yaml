@@ -8,13 +8,22 @@
     dest: /var/www/ood/apps/sys/ansys/
     clone: yes
 
-- name: Replace submit.yml.erb
+- name: Replace form.yml
   template:
+    src: form.yml
+    dest: /var/www/ood/apps/sys/ansys/form.yml
+
+- name: Remove form.js
+  file:
+    path: /var/www/ood/apps/sys/ansys/form.js
+    state: absent
+
+- name: Replace form submission template
+  copy:
     src: submit.yml
     dest: /var/www/ood/apps/sys/ansys/submit.yml.erb
 
-- name: modify to fit our environment
-  lineinfile:
-    path: /var/www/ood/apps/sys/ansys/form.yml
-    regexp: '^cluster:'
-    line: 'cluster: {{ cluster_name }}'
+- name: Replace form script template
+  copy:
+    src: script.sh.erb 
+    dest: /var/www/ood/apps/sys/ansys/template/script.sh.erb 

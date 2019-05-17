@@ -147,7 +147,7 @@
   ansys_module_name: "ansys"
   ansys_install_root: "{{ cluster_apps_dir }}/{{ ansys_module_name }}"
   ansys_modulefiles_dir: "{{ cluster_modulefiles_dir }}/{{ ansys_module_name }}"
-  ansys_docs_url: "https://www.mathworks.com/products/matlab.html"
+  ansys_docs_url: "https://www.ansys.com/"
   ansys_versions:
     - { ver: '19.1', url: "https://uab.box.com/shared/static/4a027wd442juo82arq3oqxb4uwkft3gt.gz" }
 
