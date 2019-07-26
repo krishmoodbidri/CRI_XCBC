@@ -25,13 +25,3 @@
       - tmux
       - ruby
 
-- name: Mount /home, /opt/ohpc/pub from OHPC node
-  mount:
-    path: "{{ item.path }}"
-    src: "{{ item.src }}"
-    fstype: nfs
-    opts: nfsvers=3,nodev,noatime
-    state: mounted
-  with_items:
-    - { path: "/home", src: "{{ headnode_private_ip }}:/home" }
-    - { path: "/opt/ohpc/pub", src: "{{ headnode_private_ip }}:/opt/ohpc/pub" }
