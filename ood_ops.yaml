@@ -1,0 +1,6 @@
+---
+- hosts: ood_ops
+  roles:
+    - { name: 'mount_ood', tags: 'mount_ood' }
+    - { name: 'warewulf_sync', tags: 'warewulf_sync' }
+~                                                                        
