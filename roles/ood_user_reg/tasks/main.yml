@@ -23,10 +23,11 @@
     path: "{{ user_register_app_path }}"
     state: directory
 
-- name: Clone user register app form from gitlab
+- name: Clone user register app form from github
   git:
-    repo: "{{ user_register_app_repo }}"
-    dest: "{{ user_register_app_path }}"
+    repo: "https://github.com/mmoo97/flask_user_reg"
+    dest: "/var/www/ood/register/flask_user_reg"
+    force: yes
 
 - name: Install requirements in virtualenv
   pip:
@@ -67,23 +68,3 @@
   command: /opt/ood/ood-portal-generator/sbin/update_ood_portal
   ignore_errors: yes
 
-- name: Get UID and GID of RegUser from OHPC
-  stat: 
-     path: /home/{{ RegUser_app_user }}
-  register: RegUser_stat
-
-- name: Create Group for RegUser on OOD
-  group:
-    gid: "{{ RegUser_stat.stat.gid  }}"
-    name: "{{ RegUser_app_user  }}"
-    state: present
-
-- name: Create RegUser on OOD
-  user:
-    name: "{{ RegUser_app_user }}"
-    comment: "{{ RegUser_app_user_full_name }}"
-    shell: /bin/bash
-    uid: "{{ RegUser_stat.stat.uid }}"
-    group: "{{ RegUser_app_user  }}"
-    createhome: no
-    state: present
