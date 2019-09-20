@@ -34,32 +34,3 @@
     virtualenv: venv
     chdir: "{{ user_register_app_path }}"
 
-- name: Put apache config file in place
-  template:
-    src: user-reg_conf.j2
-    dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/user-reg.conf"
-
-- name: Put wsgi config file in place
-  template:
-    src: wsgi.j2
-    dest: "{{ user_register_app_path }}/{{ user_register_app}}.wsgi"
-
-- name: Enable user registration redirect
-  replace:
-    path: /etc/ood/config/ood_portal.yml
-    regexp: '{{ item.regexp }}'
-    replace: '{{ item.replace }}'
-    backup: yes
-  with_items:
-      - { regexp: "^#?(user_map_cmd:).*", replace: "\\1 '/opt/ood/ood_auth_map/bin/uab_ood_auth.regex'" }
-      - { regexp: "^#?(map_fail_uri:).*", replace: "\\1 '/register'" }
-      - { regexp: "^#?(register_uri:).*", replace: "\\1 '/register'" }
-
-- name: Stage regex file for ood
-  copy:
-    src: uab_ood_auth.regex
-    dest: /opt/ood/ood_auth_map/bin/uab_ood_auth.regex
-    owner: root
-    group: root
-    mode: 0755
-
