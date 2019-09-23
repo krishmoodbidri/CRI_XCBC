@@ -1,0 +1,59 @@
+- name: Install requirements in virtualenv
+  pip:
+    requirements: requirements.txt
+    virtualenv: venv
+    chdir: "{{ user_register_app_path }}"
+
+- name: Put apache config file in place
+  template:
+    src: user-reg_conf.j2
+    dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/user-reg.conf"
+
+- name: Put wsgi config file in place
+  template:
+    src: wsgi.j2
+    dest: "{{ user_register_app_path }}/{{ user_register_app}}.wsgi"
+
+- name: Enable user registration redirect
+  replace:
+    path: /etc/ood/config/ood_portal.yml
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.replace }}'
+    backup: yes
+  with_items:
+      - { regexp: "^#?(user_map_cmd:).*", replace: "\\1 '/opt/ood/ood_auth_map/bin/uab_ood_auth.regex'" }
+      - { regexp: "^#?(map_fail_uri:).*", replace: "\\1 '/register'" }
+      - { regexp: "^#?(register_uri:).*", replace: "\\1 '/register'" }
+
+- name: Stage regex file for ood
+  copy:
+    src: uab_ood_auth.regex
+    dest: /opt/ood/ood_auth_map/bin/uab_ood_auth.regex
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Build the updated Apache config
+  command: /opt/ood/ood-portal-generator/sbin/update_ood_portal
+  ignore_errors: yes
+
+- name: Get UID and GID of RegUser from OHPC
+  stat: 
+     path: /home/{{ RegUser_app_user }}
+  register: RegUser_stat
+
+- name: Create Group for RegUser on OOD
+  group:
+    gid: "{{ RegUser_stat.stat.gid  }}"
+    name: "{{ RegUser_app_user  }}"
+    state: present
+
+- name: Create RegUser on OOD
+  user:
+    name: "{{ RegUser_app_user }}"
+    comment: "{{ RegUser_app_user_full_name }}"
+    shell: /bin/bash
+    uid: "{{ RegUser_stat.stat.uid }}"
+    group: "{{ RegUser_app_user  }}"
+    createhome: no
+    state: present
