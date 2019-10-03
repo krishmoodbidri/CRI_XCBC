@@ -44,6 +44,15 @@
     src: wsgi.j2
     dest: "{{ user_register_app_path }}/{{ user_register_app}}.wsgi"
 
+- name: Enable mpm event
+  replace:
+    path: "/opt/rh/httpd24/root/etc/httpd/conf.modules.d/00-mpm.conf"
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.replace }}'
+  with_items:
+      - { regexp: "^(LoadModule mpm_.*)$", replace: "#\\1" }
+      - { regexp: "^#?(LoadModule mpm_event.*)$", replace: "\\1" }
+
 - name: Enable user registration redirect
   replace:
     path: /etc/ood/config/ood_portal.yml
