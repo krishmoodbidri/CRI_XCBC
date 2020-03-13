@@ -77,7 +77,6 @@
 
    - name: import files into WW database
      command: wwsh file import "{{ item }}"
-     become: true
      with_items:
            - /etc/passwd
            - /etc/group
