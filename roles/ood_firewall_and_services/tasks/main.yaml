@@ -1,7 +1,6 @@
 ---
 - name: Enable http service
   systemd:
-    state: started
     name: httpd24-httpd
     enabled: yes
 
