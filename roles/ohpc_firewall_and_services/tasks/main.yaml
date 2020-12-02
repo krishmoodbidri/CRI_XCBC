@@ -1,6 +1,5 @@
 ---
-- name: start and enable munge
+- name: enable munge
   service:
     name: munge
-    state: started
     enabled: yes
