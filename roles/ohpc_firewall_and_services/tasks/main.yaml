@@ -1,5 +1,5 @@
 ---
 - name: enable munge
-  service:
+  systemd:
     name: munge
     enabled: yes
