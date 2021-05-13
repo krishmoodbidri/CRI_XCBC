@@ -104,7 +104,7 @@
     name: httpd24-httpd
     enabled: yes
 
-- name: Enable flask app uwsgi service
+- name: Enable flask app gunicorn service
   systemd:
     name: "{{ user_register_app }}"
     enabled: yes
