@@ -61,11 +61,6 @@
     src: user-reg_conf_shib.j2
     dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/user-reg.conf"
 
-- name: Put wsgi file in place
-  template:
-    src: wsgi.j2
-    dest: "{{ user_register_app_path }}/wsgi.py"
-
 - name: Put gunicorn config file in place
   template:
     src: ini.j2
