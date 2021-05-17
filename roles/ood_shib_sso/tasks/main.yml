@@ -34,18 +34,6 @@
     src: shibboleth2.xml
     dest: /etc/shibboleth/shibboleth2.xml
 
-- name: add saml-to-ood user map file
-  copy:
-    src: ood-user-mapfile
-    dest: /etc/ood/ood-user-mapfile
-
-- name: update ood portal config with user mapfile
-  replace:
-    path: /etc/ood/config/ood_portal.yml
-    regexp: '^#user_map_cmd:.*$'
-    replace: "user_map_cmd: '/opt/ood/ood_auth_map/bin/ood_auth_map.mapfile --file /etc/ood/ood-user-mapfile'\nuser_env: 'REMOTE_USER'\n"
-    backup: yes
-
 - name: update ood portal config for shibboleth authn
   replace:
     path: /etc/ood/config/ood_portal.yml
