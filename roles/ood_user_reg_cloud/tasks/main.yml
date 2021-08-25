@@ -51,6 +51,11 @@
     group: apache
     state: directory
 
+- name: Put wsgi file in place
+  template:
+    src: wsgi.j2
+    dest: "{{ user_register_app_path }}/wsgi.py"
+
 - name: Copy Celery service template
   template:
     src: celery.service.j2
