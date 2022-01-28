@@ -91,6 +91,16 @@
         - 'RequestHeader unset Authorization'
         - 'Require valid-user'
 
+- name: enable ssl
+  blockinfile:
+    path: /etc/ood/config/ood_portal.yml
+    insertbefore: "#ssl:"
+    backup: yes
+    block: |
+      ssl:
+        - 'SSLCertificateFile "/etc/pki/tls/certs/localhost.crt"'
+        - 'SSLCertificateKeyFile "/etc/pki/tls/private/localhost.key"'
+
 - name: Stage http authz file for ood
   copy:
     src: htpasswd
@@ -102,3 +112,8 @@
 - name: Build the updated Apache config
   command: /opt/ood/ood-portal-generator/sbin/update_ood_portal
   ignore_errors: yes
+
+- name: Restart service httpd24, in all cases
+  service:
+    name: httpd24-httpd
+    state: restarted
