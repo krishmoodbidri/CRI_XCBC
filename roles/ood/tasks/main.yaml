@@ -91,16 +91,6 @@
         - 'RequestHeader unset Authorization'
         - 'Require valid-user'
 
-- name: enable ssl
-  blockinfile:
-    path: /etc/ood/config/ood_portal.yml
-    insertbefore: "#ssl:"
-    backup: yes
-    block: |
-      ssl:
-        - 'SSLCertificateFile "/etc/pki/tls/certs/localhost.crt"'
-        - 'SSLCertificateKeyFile "/etc/pki/tls/private/localhost.key"'
-
 - name: Stage http authz file for ood
   copy:
     src: htpasswd
