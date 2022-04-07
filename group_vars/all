@@ -168,7 +168,6 @@
 # S3-shib_config
   s3_shibboleth_bucket_name: UAB_SHIB_BUCKET
   s3_shibboleth_object_name: UAB_SHIB_OBJECT
->>>>>>> .merge_file_YgD5eO
 
 # User Registration
   enable_user_reg: true
