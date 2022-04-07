@@ -158,7 +158,6 @@
 # Shibboleth SSO
   enable_shib: false
   configure_shib_uab: false
-  configure_shib_saml: false
 
 # LTS-S3 config
   lts_access_key:  ACCESS_KEY
