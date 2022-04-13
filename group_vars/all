@@ -81,6 +81,8 @@
   ood_version: 2.0
   ood_private_ip: "10.1.1.11"
   ood_rpm_repo: "https://yum.osc.edu/ondemand/{{ ood_version }}/ondemand-release-web-{{ ood_version }}-1.noarch.rpm"
+  # a regex to extract username from remote_user in user_auth script"
+  ood_user_regex: "^(.+)$"
 
 #Node Inventory - not in the Ansible inventory sense! Just for WW and Slurm config.
 # Someday I will need a role that can run wwnodescan, and add nodes to this file! Probably horrifying practice.
@@ -160,17 +162,17 @@
     - { repo_name: "atlurie/shibboleth-3.0-ood", host: ["{{ ood_nodename }}"] }
 
 # Shibboleth SSO
-  enable_shib: false
-  configure_shib_uab: false
+  install_shib: true
+  configure_shib: true
 
 # LTS-S3 config
-  lts_access_key:  ACCESS_KEY
-  lts_secret_key: SECRET_KEY
-  s3_endpoint:  S3_ENDPOINT
+  lts_access_key: VW7S7R34D42E4JIE065D
+  lts_secret_key: EBWgsLoIGqQLhMQHUPtea03DXPyVfODFF50iH8vO
+  s3_endpoint: https://s3.lts.rc.uab.edu
 
-# S3-shib_config
-  s3_shibboleth_bucket_name: UAB_SHIB_BUCKET
-  s3_shibboleth_object_name: UAB_SHIB_OBJECT
+#S3-shib_config
+  s3_shibboleth_bucket_name: uab-shib
+  s3_shibboleth_object_name: shib_conf.tar.gz  
 
 # User Registration
   enable_user_reg: true
@@ -222,6 +224,7 @@
 
 #ClusteronDemand CoD
   cod_deploy: true
+  post_create_script: PostAddUserScript.sh
 
 # Lmod
   lmod_loc: "/opt/ohpc/admin/lmod/lmod"
