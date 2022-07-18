@@ -85,6 +85,7 @@ attributes:
     label: Partition
     options:
       - [ "low", "low" ]
+      - [ "defq", "defq" ]
 
 # All of the attributes that make up the Dashboard form (in respective order),
 # and made available to the submit configuration file and the template ERB
