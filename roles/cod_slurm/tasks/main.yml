@@ -21,6 +21,11 @@
     backup: yes
   when: "'FreezeChangesToSlurmConfig = true' in lookup('file', '/cm/local/apps/cmd/etc/cmd.conf')"
 
+- name: Restart cmd
+  ansible.builtin.service:
+    name: cmd
+    state: restarted
+
 - name: Template slurm.conf
   ansible.builtin.template:
     src: slurm.conf.j2
@@ -29,7 +34,3 @@
 - name: Reconfigure Slurm
   ansible.builtin.command: scontrol reconfigure
 
-- name: Restart cmd
-  ansible.builtin.service:
-    name: cmd
-    state: restarted
