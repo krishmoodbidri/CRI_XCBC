@@ -1,4 +1,14 @@
 ---
+- name: Template slurm.conf
+  ansible.builtin.template:
+    src: slurm.conf.j2
+    dest: "{{ slurm_conf_path }}"
+
+- name: Restart slurmctld
+  ansible.builtin.service:
+    name: slurmctld
+    state: restarted
+
 - name: Enable setting to prevent cmd from overwriting slurm config
   ansible.builtin.lineinfile:
     path: "/cm/local/apps/cmd/etc/cmd.conf"
@@ -24,16 +34,6 @@
 - name: Restart cmd
   ansible.builtin.service:
     name: cmd
-    state: restarted
-
-- name: Template slurm.conf
-  ansible.builtin.template:
-    src: slurm.conf.j2
-    dest: "{{ slurm_conf_path }}"
-
-- name: Restart slurmctld
-  ansible.builtin.service:
-    name: slurmctld
     state: restarted
 
 - name: Reconfigure Slurm
