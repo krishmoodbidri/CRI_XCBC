@@ -1,6 +1,7 @@
 ---
 - hosts: headnode
   roles:
+    - { name: 'cod_slapd_conf', tags: 'cod_slapd_conf' }
     - { name: 'cod_fix_centos_yum', tags: 'cod_fix_centos_yum' }
     - { name: 'enable_lmod', tags: 'enable_lmod' }
     - { name: 'enable_lmod', tags: 'enable_lmod_image', vars: [{ enable_lmod_prefix: "{{ cm_def_img_path }}" }] }
