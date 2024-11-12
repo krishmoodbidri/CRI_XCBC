@@ -4,9 +4,11 @@
     - name: Add shibboleth openSUSE build service repository
       ansible.builtin.yum_repository:
         name: shibboleth
-        description: Shibboleth (CentOS_7)
-        mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_7
-        gpgkey: https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+        description: Shibboleth (rockylinux9)
+        mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/rockylinux9
+        gpgkey:
+          - https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+          - https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
         gpgcheck: no
         enabled: yes
 
