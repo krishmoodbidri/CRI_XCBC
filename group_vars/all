@@ -339,8 +339,8 @@
   node_exporter_sha256: "sha256sums.txt"
   node_exporter_scriptdir: "{{ playbook_dir }}"
 
-# sshpiper
-  enable_sshpiper: false
+# ssh_proxy
+  enable_ssh_proxy: false
   go_download_url: "https://go.dev/dl/go1.22.4.linux-amd64.tar.gz"
   go_download_path: "/tmp/go1.22.4.linux-amd64.tar.gz"
   go_binary_path: "/usr/local"
@@ -352,13 +352,13 @@
     - {"name": "gpfs4", "authorized_keys":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "host": "login001", "private_key":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
     - {"name": "gpfs5", "authorized_keys":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "host": "login002", "private_key":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
 
-# ood_proxy
-  enable_ood_proxy: false
+# http_proxy
+  enable_http_proxy: false
 
 # cod_slurm
   frozen_file_list:
     - /cm/shared/apps/slurm/var/etc/slurm/cgroup.conf
-    - /cm/shared/apps/slurm/var/etc/slurm/slurm.conf 
+    - /cm/shared/apps/slurm/var/etc/slurm/slurm.conf
     - /cm/shared/apps/slurm/var/etc/slurm/gres.conf
 
 # job_submit_plugin
