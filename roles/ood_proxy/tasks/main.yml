@@ -134,5 +134,6 @@
     - name: Restart services
       ansible.builtin.service:
         name: httpd
+        enabled: true
         state: restarted
 
