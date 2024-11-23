@@ -354,6 +354,9 @@
 
 # http_proxy
   enable_http_proxy: false
+  target_groups:
+    - {"name": "gpfs4", "host": "login001", "default": True}
+    - {"name": "gpfs5", "host": "login002", "default": False}
 
 # cod_slurm
   frozen_file_list:
