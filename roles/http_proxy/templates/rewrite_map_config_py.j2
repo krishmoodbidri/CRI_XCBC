@@ -1,5 +1,11 @@
 DEBUG = False
-target_grp = 'gpfs5'
-target_hostname = 'login002.cm.cluster'
-
-default_hostname = 'login001.cm.cluster'
+target_groups = {
+    {% for group in target_groups %}
+    "{{ group.name }}": "{{ group.host }}",
+    {% endfor %}
+}
+{% for group in target_groups %}
+{% if group.default %}
+default_hostname = "{{ group.host }}"
+{% endif %}
+{% endfor %}

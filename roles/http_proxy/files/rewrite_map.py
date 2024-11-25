@@ -4,16 +4,20 @@ import sys
 import rewrite_map_config as cfg
 
 while sys.stdin:
+    hostname = ""
     try:
         username = sys.stdin.readline().strip()   ## It is very important to use strip!
-        if cfg.DEBUG: print(username)
-        if not username:
-            print(cfg.default_hostname)
-        if username in grp.getgrnam(cfg.target_grp).gr_mem:
-            print(cfg.target_hostname)
-        else:
-            print(cfg.default_hostname)
-        sys.stdout.flush()
+        if username:
+            for group in cfg.target_groups:
+                if username in grp.getgrnam(group).gr_mem:
+                    hostname = cfg.target_groups[group]
+                    break
+
+        if not hostname:
+            hostname = cfg.default_hostname
+
     except:
-        print(cfg.default_hostname)
-        sys.stdout.flush()
+        hostname = cfg.default_hostname
+
+    print(hostname)
+    sys.stdout.flush()
