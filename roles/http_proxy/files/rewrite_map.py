@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import grp
 import sys
-import rewritemap_config as cfg
+import rewrite_map_config as cfg
 
 while sys.stdin:
     try:

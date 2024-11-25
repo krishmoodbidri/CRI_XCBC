@@ -109,10 +109,10 @@
         dest: /etc/httpd/conf.d/front-end.conf
 
     - name: Add apache rewritemap script config
-      ansible.builtin.copy:
-        src: rewritemap_config.py
+      ansible.builtin.template:
+        src: rewrite_map_config_py.j2
         mode: '755'
-        dest: /var/www/rewritemap_config.py
+        dest: /var/www/rewrite_map_config.py
 
     - name: Add apache rewritemap script
       ansible.builtin.copy:
