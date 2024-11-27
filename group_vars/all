@@ -339,6 +339,11 @@
   node_exporter_sha256: "sha256sums.txt"
   node_exporter_scriptdir: "{{ playbook_dir }}"
 
+# Ancillary groups
+  target_groups:
+    - {"name": "gpfs4", "host": "login001", "default": True, "authorized_keys":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "private_key":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
+    - {"name": "gpfs5", "host": "login002", "default": False, "authorized_keys":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "private_key":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
+
 # ssh_proxy
   enable_ssh_proxy: false
   go_download_url: "https://go.dev/dl/go1.22.4.linux-amd64.tar.gz"
@@ -348,15 +353,9 @@
   sshpiper_version: "feat-routing-by-group"
   sshpiper_dest_dir: "/opt/sshpiper"
   sshpiper_bin_dir: "{{ sshpiper_dest_dir }}/out"
-  gpfs_groups:
-    - {"name": "gpfs4", "authorized_keys":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "host": "login001", "private_key":"/gpfs4/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
-    - {"name": "gpfs5", "authorized_keys":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/authorized_keys", "host": "login002", "private_key":"/gpfs5/data/user/home/$DOWNSTREAM_USER/.ssh/id_ecdsa"}
 
 # http_proxy
   enable_http_proxy: false
-  target_groups:
-    - {"name": "gpfs4", "host": "login001", "default": True}
-    - {"name": "gpfs5", "host": "login002", "default": False}
 
 # cod_slurm
   frozen_file_list:
