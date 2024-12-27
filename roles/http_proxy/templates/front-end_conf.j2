@@ -30,21 +30,21 @@
   LogLevel alert proxy:info
   LogLevel alert rewrite:info
 
-  ProxyPassReverse / "http://login001.cm.cluster/"
-  ProxyPassReverse / "http://login002.cm.cluster/"
-
-  <Location "/">
+  <Location "/pun">
     AuthType shibboleth
     ShibRequestSetting requireSession 1
     Require valid-user
     ShibUseHeaders On
     RewriteCond %{IS_SUBREQ} ^false$
-    RewriteCond %{HTTP:REMOTE_USER} '{{ ood_user_regex }}'
+    RewriteCond %{HTTP:REMOTE_USER} '^(.+)$'
     RewriteRule . - [E=PROXY_USER:%1]
 
     RequestHeader set Proxy-User %{PROXY_USER}e
 
     RequestHeader set X-Forwarded-Scheme https
+
+    ProxyPassReverse "http://login001.cm.cluster/pun"
+    ProxyPassReverse "http://login002.cm.cluster/pun"
 
     ProxyPreserveHost On
     RewriteCond %{HTTP:Connection} !upgrade [NC]
@@ -60,6 +60,35 @@
     #RewriteCond "%{LA-U:REMOTE_USER}" ^(.+)$
     RewriteCond "${grp:%1}" ^(.+)$
     RewriteRule .* "ws://%1%{REQUEST_URI}" [P,L]
-
   </Location>
+
+  RedirectMatch ^/$ "/pun/sys/dashboard"
+
+  ProxyPass /socket.io/ http://account-app:8000/socket.io/
+  ProxyPassReverse /socket.io/ http://account-app:8000/socket.io/
+
+  ProxyPass /account http://account-app:8000/
+  ProxyPassReverse /account http://account-app:8000/
+
+  ProxyPass /static http://account-app:8000/static
+  ProxyPassReverse /static http://account-app:8000/static
+
+  <Location /account>
+      AuthType shibboleth
+      ShibRequestSetting requireSession 1
+      Require valid-user
+      ShibUseHeaders On
+      RewriteCond %{IS_SUBREQ} ^false$
+      RewriteCond %{HTTP:REMOTE_USER} '([a-zA-Z0-9_.+-]+)@uab.edu$' [OR]
+      RewriteCond %{HTTP:REMOTE_USER} 'urn:mace:incommon:uab.edu!https://uabgrid.uab.edu/shibboleth!(.+)$'
+      RewriteRule . - [E=REMOTE_USER:%1]
+      RequestHeader set REMOTE_USER %{REMOTE_USER}e
+  </Location>
+
+  <Location "/static/">
+      AuthType shibboleth
+      ShibRequestSetting requireSession 1
+      Require valid-user
+  </Location>
+
 </VirtualHost>
