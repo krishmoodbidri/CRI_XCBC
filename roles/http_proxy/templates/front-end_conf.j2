@@ -36,8 +36,9 @@
     Require valid-user
     ShibUseHeaders On
     RewriteCond %{IS_SUBREQ} ^false$
-    RewriteCond %{HTTP:REMOTE_USER} '{{ ood_user_regex }}'
-    RewriteRule . - [E=PROXY_USER:%1]
+
+   # Placeholder for RewriteCond and RewriteRule
+   {{ ood_rewrite_placeholder }}
 
     RequestHeader set Proxy-User %{PROXY_USER}e
 

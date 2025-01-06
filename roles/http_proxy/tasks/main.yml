@@ -108,6 +108,15 @@
         src: front-end_conf.j2
         dest: /etc/httpd/conf.d/front-end.conf
 
+    - name: Replace OOD rewrite placeholder in Apache configuration
+      ansible.builtin.replace:
+        path: /etc/httpd/conf.d/front-end.conf
+        regexp: '# Placeholder for RewriteCond and RewriteRule\n\s*{{ ood_rewrite_placeholder }}'
+        replace: |
+          RewriteCond %{HTTP:REMOTE_USER} '([a-zA-Z0-9_.+-]+)@uab.edu$' [OR]
+          RewriteCond %{HTTP:REMOTE_USER} 'urn:mace:incommon:uab.edu!https://uabgrid.uab.edu/shibboleth!(.+)$'
+          RewriteRule . - [E=REMOTE_USER:%1]
+
     - name: Add apache rewritemap script config
       ansible.builtin.template:
         src: rewrite_map_config_py.j2
