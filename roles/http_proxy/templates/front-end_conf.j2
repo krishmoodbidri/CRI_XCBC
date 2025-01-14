@@ -91,4 +91,10 @@
       Require valid-user
   </Location>
 
+  <Location /public>
+    ProxyPreserveHost On
+    ProxyPass http://account-app/public
+    ProxyPassReverse http://account-app/public
+  </Location>
+
 </VirtualHost>
