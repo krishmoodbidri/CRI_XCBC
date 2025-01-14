@@ -91,12 +91,10 @@
       Require valid-user
   </Location>
 
-Alias /public /var/www/ood/public
-
-  <Directory /var/www/ood/public>
-      Options Indexes FollowSymLinks
-      AllowOverride None
-      Require all granted
-  </Directory>
+  <Location /public>
+    ProxyPreserveHost On
+    ProxyPass http://account-app/public
+    ProxyPassReverse http://account-app/public
+  </Location>
 
 </VirtualHost>
