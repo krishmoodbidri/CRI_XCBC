@@ -30,7 +30,7 @@
   LogLevel alert proxy:info
   LogLevel alert rewrite:info
 
-  <Location "/pun">
+  <LocationMatch "^/(pun|nginx|node|rnode)">
     AuthType shibboleth
     ShibRequestSetting requireSession 1
     Require valid-user
@@ -60,7 +60,7 @@
     #RewriteCond "%{LA-U:REMOTE_USER}" ^(.+)$
     RewriteCond "${grp:%1}" ^(.+)$
     RewriteRule .* "ws://%1%{REQUEST_URI}" [P,L]
-  </Location>
+  </LocationMatch>
 
   RedirectMatch ^/$ "/pun/sys/dashboard"
 
