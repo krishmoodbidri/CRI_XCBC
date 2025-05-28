@@ -350,7 +350,7 @@
   go_download_path: "/tmp/go1.22.4.linux-amd64.tar.gz"
   go_binary_path: "/usr/local"
   sshpiper_git_repo: "https://github.com/tg123/sshpiper"
-  sshpiper_version: "95642617d36d6a5a4b51fee36d35ee4f898369ec"
+  sshpiper_version: "3dda361863e1eb2ceac1a421456b7c2f47987776"
   sshpiper_dest_dir: "/opt/sshpiper"
   sshpiper_bin_dir: "{{ sshpiper_dest_dir }}/out"
   sshpiper_bantime: 1200s
