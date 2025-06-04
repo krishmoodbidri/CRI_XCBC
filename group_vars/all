@@ -355,6 +355,7 @@
   sshpiper_bin_dir: "{{ sshpiper_dest_dir }}/out"
   sshpiper_bantime: 1200s
   sshpiper_maxfailures: 5
+  sshpiper_whitelist: "127.0.0.1/8"
 
 # http_proxy
   enable_http_proxy: false
