@@ -293,7 +293,7 @@
   post_create_script: PostAddUserScript.sh
   cm_def_img_path: "/cm/images/default-image"
   enable_cod_login_node: false
-  cenots_base_url: "http://vault.centos.org"
+  centos_base_url: "http://vault.centos.org"
 
 # Lmod
   lmod_loc: "/usr/share/lmod/lmod"
