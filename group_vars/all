@@ -230,7 +230,7 @@
   s3_shibboleth_object_name: UAB_SHIB_OBJECT
 
 # User Registration
-  enable_user_reg: true
+  enable_account_app: true
   account_app: "account_app"
   account_app_tag: "master"
   account_app_path: "/var/www/ood/register/{{ account_app }}"
