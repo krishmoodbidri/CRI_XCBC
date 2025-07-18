@@ -243,7 +243,7 @@
   cors_allowed_origins: "*"
   mod_wsgi_pkg_name: "uab-httpd24-mod_wsgi"
   RegUser_app_user: "reggie"
-  RegUser_app_user_full_name: "RegUser of user register app"
+  RegUser_app_user_full_name: "Service user of account app"
   RegUser_app_user_passwd: "qweasd"
 # Authorized user group
   valid_eppa:  ["faculty", "staff", "student", "affiliate"]
@@ -292,6 +292,8 @@
   cod_deploy: true
   post_create_script: PostAddUserScript.sh
   cm_def_img_path: "/cm/images/default-image"
+  enable_cod_login_node: false
+  centos_base_url: "http://vault.centos.org"
 
 # Lmod
   lmod_loc: "/usr/share/lmod/lmod"
@@ -355,6 +357,7 @@
   sshpiper_bin_dir: "{{ sshpiper_dest_dir }}/out"
   sshpiper_bantime: 1200s
   sshpiper_maxfailures: 5
+  sshpiper_whitelist: "127.0.0.1/8"
 
 # http_proxy
   enable_http_proxy: false
