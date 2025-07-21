@@ -231,11 +231,11 @@
 
 # User Registration
   enable_account_app: true
-  account_app: "account_app"
+  account_app: "account"
   account_app_tag: "master"
   account_app_path: "/var/www/ood/register/{{ account_app }}"
   account_app_key: "1234"
-  account_app_repo: "https://gitlab.rc.uab.edu/rc/self-reg-form.git"
+  account_app_repo: "https://gitlab.rc.uab.edu/rc/account-app.git"
   account_app_refspec: "{{ gitlab_refspec }}"
   account_app_port: 8000
   account_app_host: "login005"
