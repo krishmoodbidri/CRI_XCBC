@@ -7,7 +7,7 @@ ProxyPassReverse /{{ user_register_app }} http://{{ user_register_app_host }}:{{
 ProxyPass        /static http://{{ user_register_app_host }}:{{ user_register_app_port }}/static
 ProxyPassReverse /static http://{{ user_register_app_host }}:{{ user_register_app_port }}/static
 
-<Location /{{ user_register_app }}>
+<Location /{{ account_app }}>
     AuthType shibboleth
     ShibRequestSetting requireSession 1
     Require valid-user
