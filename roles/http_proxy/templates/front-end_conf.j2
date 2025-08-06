@@ -43,8 +43,9 @@
 
     RequestHeader set X-Forwarded-Scheme https
 
-    ProxyPassReverse "http://login001.cm.cluster/pun"
-    ProxyPassReverse "http://login002.cm.cluster/pun"
+    {% for target in target_groups %}
+    ProxyPassReverse "http://{{ target.host }}/pun"
+    {% endfor %}
 
     ProxyPreserveHost On
     RewriteCond %{HTTP:Connection} !upgrade [NC]
