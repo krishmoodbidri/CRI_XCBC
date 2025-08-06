@@ -1,0 +1,139 @@
+---
+- name: Install packages via yum
+  yum:
+    name:
+      - python3-pip
+      - python3-devel
+    state: latest
+
+- name: Remove existing user register app install
+  file:
+    path: "{{ account_app_path }}"
+    state: absent
+
+- name: Clone user register app form from gitlab
+  git:
+    repo: "{{ account_app_repo }}"
+    dest: "{{ account_app_path }}"
+    refspec: "{{ account_app_refspec }}"
+    version: "{{ account_app_tag }}"
+
+- name: Change ownership of directory
+  file:
+    path: "{{ account_app_path }}"
+    owner: root
+    group: root
+    state: directory
+    recurse: yes
+
+- name: Create __pycache__ directories with proper ownership
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ RegUser_app_user }}"
+    group: "{{ RegUser_app_user }}"
+  loop:
+    - "{{ account_app_path }}/__pycache__"
+    - "{{ account_app_path }}/app/__pycache__"
+
+- name: Copy Self-Reg app variables file
+  template:
+    src: app_vars.j2
+    dest: "{{ account_app_path }}/app_vars.py"
+
+- name: Install requirements in virtualenv
+  pip:
+    requirements: requirements.txt
+    virtualenv: venv
+    virtualenv_command: /usr/bin/python3 -m venv
+    chdir: "{{ account_app_path }}"
+
+- name: Install gunicorn in virtualenv
+  pip:
+    name: gunicorn
+    virtualenv: venv
+    virtualenv_command: /usr/bin/python3 -m venv
+    chdir: "{{ account_app_path }}"
+
+- name: Create log directory
+  file:
+    path: "/var/log/{{ account_app }}"
+    owner: "{{ RegUser_app_user }}"
+    group: "{{ RegUser_app_user }}"
+    state: directory
+
+- name: Set up log rotate for module usage
+  template:
+    src: logrotate.j2
+    dest: "/etc/logrotate.d/{{ account_app }}"
+
+- name: Copy Celery service template
+  template:
+    src: celery.service.j2
+    dest: "/etc/systemd/system/celery-{{ account_app }}.service"
+
+- name: Enable celery.service
+  systemd:
+    name: celery-{{ account_app }}.service
+    enabled: yes
+
+- name: Put apache config file in place (user-reg_conf_shib.j2 in case of shib)
+  template:
+    src: user-reg_conf_shib.j2
+    dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/user-reg-{{ account_app }}.conf"
+  when: configure_shib
+
+- name: Put apache config file in place (user-reg_conf.j2 in case of basicauth)
+  template:
+    src: user-reg_conf.j2
+    dest: "/opt/rh/httpd24/root/etc/httpd/conf.d/user-reg.conf"
+  when: not configure_shib
+
+- name: Put wsgi file in place
+  template:
+    src: wsgi.j2
+    dest: "{{ account_app_path }}/wsgi.py"
+
+- name: Put gunicorn config file in place
+  template:
+    src: ini.j2
+    dest: "{{ account_app_path }}/{{ account_app }}.ini"
+
+- name: Create gunicorn system service
+  template:
+    src: service.j2
+    dest: "/etc/systemd/system/{{ account_app }}.service"
+
+- name: Enable user registration redirect
+  replace:
+    path: /etc/ood/config/ood_portal.yml
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.replace }}'
+    backup: yes
+  with_items:
+      - { regexp: "^#?(user_map_cmd:).*", replace: "\\1 '/opt/ood/ood_auth_map/bin/user_auth.py'" }
+      - { regexp: "^#?(map_fail_uri:).*", replace: "\\1 '/{{ account_app }}'" }
+      - { regexp: "^#?(register_uri:).*", replace: "\\1 '/{{ account_app }}'" }
+  when: activate_namespace
+
+- name: Stage regex file for ood
+  template:
+    src: user_auth_py.j2
+    dest: /opt/ood/ood_auth_map/bin/user_auth.py
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Build the updated Apache config
+  command: /opt/ood/ood-portal-generator/sbin/update_ood_portal
+  ignore_errors: yes
+
+- name: Enable apache service
+  systemd:
+    name: httpd24-httpd
+    enabled: yes
+
+- name: Start and enable flask app gunicorn service
+  service:
+    name: "{{ account_app }}"
+    enabled: yes
