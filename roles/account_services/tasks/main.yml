@@ -1,0 +1,61 @@
+---
+- name: Install packages via yum
+  yum:
+    name:
+      - python3-pip
+      - python3-devel
+    state: latest
+
+- name: Remove existing user register app install
+  file:
+    path: "{{ account_app_path }}"
+    state: absent
+
+- name: Clone user register app form from gitlab
+  git:
+    repo: "{{ account_app_repo }}"
+    dest: "{{ account_app_path }}"
+    refspec: "{{ account_app_refspec }}"
+    version: "{{ account_app_tag }}"
+
+- name: Change ownership of directory
+  file:
+    path: "{{ account_app_path }}"
+    owner: root
+    group: root
+    state: directory
+    recurse: yes
+
+- name: Create __pycache__ in app dir
+  file:
+    path: "{{ account_app_path }}/__pycache__"
+    owner: "{{ RegUser_app_user }}"
+    group: "{{ RegUser_app_user }}"
+    state: directory
+
+- name: Create  __pycache__ in app dir
+  file:
+    path: "{{ account_app_path }}/app/__pycache__"
+    owner: "{{ RegUser_app_user }}"
+    group: "{{ RegUser_app_user }}"
+    state: directory
+
+- name: Copy Self-Reg app variables file
+  template:
+    src: app_vars.j2
+    dest: "{{ account_app_path }}/app_vars.py"
+
+- name: Install requirements in virtualenv
+  pip:
+    requirements: requirements.txt
+    virtualenv: venv
+    virtualenv_command: /usr/bin/python3 -m venv
+    chdir: "{{ account_app_path }}"
+
+- name: Create log directory
+  file:
+    path: "/var/log/{{ account_app }}"
+    owner: "{{ RegUser_app_user }}"
+    group: "{{ RegUser_app_user }}"
+    state: directory
+
