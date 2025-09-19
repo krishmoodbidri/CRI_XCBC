@@ -6,6 +6,15 @@
       - python3-devel
     state: latest
 
+- name: Create RegUser on OOD
+  user:
+    name: "{{ RegUser_app_user }}"
+    comment: "{{ RegUser_app_user_full_name }}"
+    shell: /bin/bash
+    createhome: no
+    state: present
+    system: yes
+
 - name: Remove existing user register app install
   file:
     path: "{{ account_app_path }}"
@@ -86,11 +95,6 @@
   template:
     src: service.j2
     dest: "/etc/systemd/system/{{ account_app }}.service"
-
-- name: Enable apache service
-  systemd:
-    name: httpd24-httpd
-    enabled: yes
 
 - name: Start and enable flask app gunicorn service
   service:
