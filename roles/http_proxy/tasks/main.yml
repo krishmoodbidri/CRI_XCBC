@@ -80,7 +80,7 @@
       aws_s3:
         mode: get
         s3_url: "{{ s3_endpoint }}"
-        bucket: "ood-ssl-certs"
+        bucket: "{{ ood_ssl_s3_bucket }}"
         object: "{{ item }}"
         dest: "/etc/pki/tls/certs/{{ item }}"
         aws_access_key: "{{ lts_access_key }}"
@@ -95,7 +95,7 @@
       aws_s3:
         mode: get
         s3_url: "{{ s3_endpoint }}"
-        bucket: "ood-ssl-certs"
+        bucket: "{{ ood_ssl_s3_bucket }}"
         object: "{{ ood_servername }}-2048.key"
         dest: "/etc/pki/tls/private/{{ ood_servername }}-2048.key"
         aws_access_key: "{{ lts_access_key }}"
