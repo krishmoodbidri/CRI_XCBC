@@ -59,6 +59,15 @@
     src: app_vars.j2
     dest: "{{ account_app_path }}/app_vars.py"
 
+- name: Ensure compiler and headers present (RHEL/CentOS)
+  yum:
+    name:
+      - gcc
+      - python3-devel
+      - make
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+  
 - name: Install requirements in virtualenv
   pip:
     requirements: requirements.txt
