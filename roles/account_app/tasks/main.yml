@@ -1,4 +1,11 @@
 ---
+- name: Install python3 and venv
+  yum:
+    name:
+      - python3
+      - python3-venv
+    state: present
+
 - name: Create RegUser on OOD
   user:
     name: "{{ RegUser_app_user }}"
@@ -47,6 +54,7 @@
   pip:
     requirements: requirements.txt
     virtualenv: venv
+    virtualenv_command: python3 -m venv
     chdir: "{{ account_app_path }}"
 
 - name: Install gunicorn in virtualenv
