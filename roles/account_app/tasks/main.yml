@@ -47,7 +47,6 @@
   pip:
     requirements: requirements.txt
     virtualenv: venv
-    virtualenv_command: /usr/bin/python3 -m venv
     chdir: "{{ account_app_path }}"
 
 - name: Install gunicorn in virtualenv
