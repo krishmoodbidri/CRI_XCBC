@@ -16,12 +16,19 @@
     createhome: no
     state: present
     system: yes
-
+    
 - name: Remove existing user register app install
   file:
     path: "{{ account_app_path }}"
     state: absent
-
+- name: Ensure account_app_path exists with root ownership
+  file:
+    path: "{{ account_app_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+    
 - name: Clone user register app form from gitlab
   git:
     repo: "{{ account_app_repo }}"
