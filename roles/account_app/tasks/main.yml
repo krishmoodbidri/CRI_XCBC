@@ -1,11 +1,20 @@
 ---
-- name: Install packages via yum
-  yum:
+- name: Install required Python packages on Debian/Ubuntu
+  package:
     name:
       - python3-pip
-      - python3-devel
+      - python3-dev      # Debian/Ubuntu equivalent
     state: latest
-    
+  when: ansible_os_family == "Debian"
+
+- name: Install required Python packages on RHEL/CentOS/Alma
+  package:
+    name:
+      - python3-pip
+      - python3-devel    # RedHat equivalent
+    state: latest
+  when: ansible_os_family == "RedHat"
+  
 - name: Create RegUser on OOD
   user:
     name: "{{ RegUser_app_user }}"
