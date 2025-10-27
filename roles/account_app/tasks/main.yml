@@ -3,7 +3,8 @@
   package:
     name:
       - python3-pip
-      - python3-dev      # Debian/Ubuntu equivalent
+      - python3-dev
+      - python3-venv    # add this line!
     state: latest
   when: ansible_os_family == "Debian"
 
