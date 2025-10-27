@@ -93,12 +93,19 @@
   become: yes
   when: ansible_os_family == "RedHat"
   
-- name: Install requirements in virtualenv
+- name: Copy requirements.txt to app directory
+  copy:
+    src: req.txt
+    dest: "{{ account_app_path }}/req.txt"
+  become: yes
+
+- name: Install requirements in virtualenv from copied requirements.txt
   pip:
-    requirements: requirements.txt
-    virtualenv: venv
+    requirements: "{{ account_app_path }}/req.txt"
+    virtualenv: "{{ account_app_path }}/venv"
     virtualenv_command: /usr/bin/python3 -m venv
     chdir: "{{ account_app_path }}"
+  become: yes
 
 - name: Install gunicorn in virtualenv
   pip:
