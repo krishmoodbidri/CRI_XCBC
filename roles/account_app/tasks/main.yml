@@ -58,6 +58,31 @@
     src: app_vars.j2
     dest: "{{ account_app_path }}/app_vars.py"
 
+- name: Install build dependencies for compiling Python packages
+  package:
+    name:
+      - build-essential
+      - python3-dev
+      - libev-dev
+      - libssl-dev
+      - libffi-dev
+    state: present
+  become: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install build dependencies for RHEL/CentOS
+  package:
+    name:
+      - gcc
+      - gcc-c++
+      - python3-devel
+      - libev-devel
+      - openssl-devel
+      - libffi-devel
+    state: present
+  become: yes
+  when: ansible_os_family == "RedHat"
+  
 - name: Install requirements in virtualenv
   pip:
     requirements: requirements.txt
