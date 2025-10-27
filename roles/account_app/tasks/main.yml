@@ -94,7 +94,7 @@
   when: ansible_os_family == "RedHat"
   
 - name: Copy requirements.txt to app directory
-  copy:
+  ansible.builtin.copy:
     src: req.txt
     dest: "{{ account_app_path }}/req.txt"
   become: yes
