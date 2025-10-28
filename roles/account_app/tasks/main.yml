@@ -92,7 +92,8 @@
     state: present
   become: yes
   when: ansible_os_family == "RedHat"
-  - name: Install Python packages in virtualenv
+  
+- name: Install Python packages in virtualenv
   pip:
     name:
       - amqp==2.5.2
