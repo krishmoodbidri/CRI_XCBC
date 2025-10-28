@@ -75,7 +75,7 @@
   command: "{{ account_app_path }}/venv/bin/pip install --upgrade pip setuptools wheel"
   become: yes
 
-- name: Install Python packages inline in virtualenv
+- name: Install updated compatible Python packages inline in virtualenv
   pip:
     name:
       - amqp==2.5.2
