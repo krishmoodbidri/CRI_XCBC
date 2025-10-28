@@ -113,7 +113,7 @@
     virtualenv: "{{ account_app_path }}/venv"
     virtualenv_command: /usr/bin/python3 -m venv
   become: yes
-  
+
 - name: Install gunicorn in virtualenv
   pip:
     name: gunicorn
