@@ -71,6 +71,12 @@
     src: app_vars.j2
     dest: "{{ account_app_path }}/app_vars.py"
 
+- name: Create Python virtualenv if it doesn't exist
+  command: /usr/bin/python3 -m venv {{ account_app_path }}/venv
+  args:
+    creates: "{{ account_app_path }}/venv/bin/activate"
+  become: yes
+
 - name: Upgrade pip, setuptools, wheel inside virtualenv
   command: "{{ account_app_path }}/venv/bin/pip install --upgrade pip setuptools wheel"
   become: yes
