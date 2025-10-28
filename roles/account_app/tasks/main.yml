@@ -1,6 +1,6 @@
 ---
-- name: Install packages via yum
-  ansible.builtin.yum:
+- name: Install packages via dnf
+  ansible.builtin.dnf:
     name:
       - python3-pip
       - python3-devel
