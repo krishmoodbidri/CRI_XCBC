@@ -106,8 +106,8 @@
   command: "{{ account_app_path }}/venv/bin/pip install --upgrade pip setuptools wheel"
   become: yes
 
-- name: Install Python packages in virtualenv using command with env var
-  command: >
+- name: Install Python packages in virtualenv using shell with env var
+  shell: >
     SETUPTOOLS_USE_DISTUTILS=stdlib
     {{ account_app_path }}/venv/bin/pip install
     amqp==2.5.2 billiard==3.6.4.0 celery==5.5.3 Click==7.0 dominate==2.4.0
