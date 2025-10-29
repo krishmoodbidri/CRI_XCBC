@@ -1,4 +1,4 @@
 ---
-- hosts: localhost
+- hosts: acctapp
   roles:
     - { name: 'account_app', tags: 'account_app' }
