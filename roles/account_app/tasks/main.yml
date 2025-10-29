@@ -37,6 +37,7 @@
     createhome: no
     state: present
     system: yes
+  become: yes
 
 - name: Remove existing user register app install
   file:
