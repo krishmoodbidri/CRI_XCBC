@@ -6,7 +6,16 @@
 - name: Print the OS distribution
   debug:
     msg: "The OS distribution is {{ ansible_distribution }}"
-        
+
+- name: Print hostname and OS details
+  debug:
+    msg:
+      - "Running on hostname: {{ ansible_hostname }}"
+      - "OS Distribution: {{ ansible_distribution }}"
+      - "OS Family: {{ ansible_os_family }}"
+      - "OS Version: {{ ansible_distribution_version }}"
+      - "OS Major Version: {{ ansible_distribution_major_version }}"
+      
 - name: Enable epel repo if not done already
   yum:
     name: "epel-release"
