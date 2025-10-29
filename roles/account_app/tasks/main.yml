@@ -1,4 +1,8 @@
 ---
+- name: Show the hostname before enabling epel repo
+  debug:
+    msg: "Running on hostname: {{ ansible_hostname }}"
+
 - name: Print the OS distribution
   debug:
     msg: "The OS distribution is {{ ansible_distribution }}"
