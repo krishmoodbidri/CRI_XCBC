@@ -27,6 +27,7 @@
       - python3-pip
       - python3-devel
     state: latest
+  become: yes
 
 - name: Create RegUser on OOD
   user:
@@ -87,6 +88,7 @@
     virtualenv: venv
     virtualenv_command: /usr/bin/python3 -m venv
     chdir: "{{ account_app_path }}"
+  become: yes
     
 - name: Install gunicorn in virtualenv
   pip:
