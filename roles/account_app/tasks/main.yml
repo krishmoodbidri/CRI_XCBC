@@ -51,6 +51,7 @@
     owner: root
     group: root
     mode: '0755'
+  become: yes
 
 - name: Clone user register app from gitlab
   git:
