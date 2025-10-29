@@ -78,6 +78,7 @@
   loop:
     - "{{ account_app_path }}/__pycache__"
     - "{{ account_app_path }}/app/__pycache__"
+  become: yes
 
 - name: Copy Self-Reg app variables file
   template:
@@ -106,6 +107,7 @@
     owner: "{{ RegUser_app_user }}"
     group: "{{ RegUser_app_user }}"
     state: directory
+  become: yes
 
 - name: Set up log rotate for module usage
   template:
@@ -129,6 +131,7 @@
     owner: "{{ RegUser_app_user }}"
     group: "{{ RegUser_app_user }}"
     state: directory
+  become: yes
 
 - name: Put gunicorn config file in place
   template:
