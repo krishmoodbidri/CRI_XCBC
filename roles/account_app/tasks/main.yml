@@ -1,4 +1,8 @@
 ---
+- name: Print the OS distribution
+  debug:
+    msg: "The OS distribution is {{ ansible_distribution }}"
+        
 - name: Enable epel repo if not done already
   yum:
     name: "epel-release"
