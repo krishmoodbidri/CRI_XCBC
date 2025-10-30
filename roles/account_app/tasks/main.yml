@@ -114,11 +114,13 @@
   template:
     src: logrotate.j2
     dest: "/etc/logrotate.d/{{ account_app }}"
+  become: yes
 
 - name: Copy Celery service template
   template:
     src: celery.service.j2
     dest: "/etc/systemd/system/celery-{{ account_app }}.service"
+  become: yes
 
 - name: Enable celery.service
   systemd:
@@ -138,11 +140,13 @@
   template:
     src: ini.j2
     dest: "{{ account_app_path }}/{{ account_app }}.ini"
+  become: yes
 
 - name: Create gunicorn system service
   template:
     src: service.j2
     dest: "/etc/systemd/system/{{ account_app }}.service"
+  become: yes
 
 - name: Start and enable flask app gunicorn service
   service:
