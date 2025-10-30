@@ -84,6 +84,7 @@
   template:
     src: app_vars.j2
     dest: "{{ account_app_path }}/app_vars.py"
+  become: yes
 
 - name: Install requirements in virtualenv
   pip:
