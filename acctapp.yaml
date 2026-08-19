@@ -2,5 +2,5 @@
 - hosts: acctapp
   become: true
   roles:
-    - { name: 'ood_user_reg_ops', tags: 'ood_user_reg_cloud', when: enable_user_reg }
-    - { name: 'ood_user_reg_cloud', tags: 'ood_user_reg_cloud', when: enable_user_reg }
+    - { name: 'ood_user_reg_ops', tags: 'ood_user_reg_cloud', when: enable_account_app }
+    - { name: 'ood_user_reg_cloud', tags: 'ood_user_reg_cloud', when: enable_account_app }
